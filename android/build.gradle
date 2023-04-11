@@ -3,8 +3,11 @@ version '1.0'
 
 buildscript {
     repositories {
-        google()
-        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+//        google()
+//        mavenCentral()
 
     }
 
@@ -15,8 +18,11 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        google()
-        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+//        google()
+//        mavenCentral()
     }
 }
 
@@ -35,5 +41,6 @@ android {
 }
 
 dependencies {
-    implementation "com.mixpanel.android:mixpanel-android:7.3.0"
+    api files('jniLibs\\classes_mix.jar')
+//    implementation "com.mixpanel.android:mixpanel-android:7.3.0"
 }

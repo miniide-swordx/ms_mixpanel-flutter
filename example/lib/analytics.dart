@@ -7,6 +7,7 @@ class MixpanelManager {
     if (_instance == null) {
       _instance = await Mixpanel.init("YOUR_PROJECT_TOKEN",
           optOutTrackingDefault: false, trackAutomaticEvents: true);
+      _instance?.setServerURL('https://log-sit.wownow.net/static/images/1.gif');
     }
     return _instance!;
   }

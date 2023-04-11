@@ -35,13 +35,14 @@ class Mixpanel {
   static Future<Mixpanel> init(String token,
       {bool optOutTrackingDefault = false,
         required bool trackAutomaticEvents,
-        Map<String, dynamic>? superProperties, Map<String, dynamic>? config}) async {
+        Map<String, dynamic>? superProperties, Map<String, dynamic>? config, String? serviceURL}) async {
     var allProperties = <String, dynamic>{'token': token};
     allProperties['optOutTrackingDefault'] = optOutTrackingDefault;
     allProperties['trackAutomaticEvents'] = trackAutomaticEvents;
     allProperties['mixpanelProperties'] = _mixpanelProperties;
     allProperties['superProperties'] = superProperties;
     allProperties['config'] = config;
+    allProperties['serviceURL'] = serviceURL;
     await _channel.invokeMethod<void>('initialize', allProperties);
     return Mixpanel(token);
   }

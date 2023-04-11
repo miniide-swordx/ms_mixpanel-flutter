@@ -1,6 +1,5 @@
 import Flutter
 import UIKit
-import Mixpanel
 
 public class SwiftMixpanelFlutterPlugin: NSObject, FlutterPlugin {
     
@@ -150,17 +149,23 @@ public class SwiftMixpanelFlutterPlugin: NSObject, FlutterPlugin {
     private func handleInitialize(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let arguments = call.arguments as? [String: Any] ?? [String: Any]()
         let token = arguments["token"] as? String
+        let serviceURL = arguments["serviceURL"] as? String
         let optOutTrackingDefault = arguments["optOutTrackingDefault"] as? Bool
         mixpanelProperties = arguments["mixpanelProperties"] as? [String: String]
         let superProperties = arguments["superProperties"] as? [String: Any]
+        
         self.token = token
         let trackAutomaticEvents = arguments["trackAutomaticEvents"] as! Bool
         self.trackAutomaticEvents = trackAutomaticEvents
         instance = Mixpanel.initialize(token: token!, trackAutomaticEvents: trackAutomaticEvents,
                                         instanceName: token!,
                                        optOutTrackingByDefault: optOutTrackingDefault ?? false,
-                                       superProperties: MixpanelTypeHandler.mixpanelProperties(properties: superProperties, mixpanelProperties: mixpanelProperties))
+                                       superProperties: MixpanelTypeHandler.mixpanelProperties(properties: superProperties, mixpanelProperties: mixpanelProperties),
+                                       serverURL: serviceURL)
+        print("serviceURL");
+        print(serviceURL ?? "");
         instance?.flushInterval = defaultFlushInterval
+        
 
         result(nil)
     }
@@ -182,6 +187,7 @@ public class SwiftMixpanelFlutterPlugin: NSObject, FlutterPlugin {
         let arguments = call.arguments as? [String: Any] ?? [String: Any]()
         let serverURL = arguments["serverURL"] as! String
         instance?.serverURL = serverURL
+        print(serverURL);
         result(nil)
     }
     

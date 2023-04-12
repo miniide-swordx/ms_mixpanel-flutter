@@ -8,6 +8,7 @@ class MixpanelManager {
       _instance = await Mixpanel.init("YOUR_PROJECT_TOKEN",
           optOutTrackingDefault: false, trackAutomaticEvents: true);
       _instance?.setServerURL('https://log-sit.wownow.net/static/images/1.gif');
+      _instance?.setUseIpAddressForGeolocation(false);
     }
     return _instance!;
   }

@@ -106,8 +106,11 @@ class Network {
         Logger.debug(message: url.absoluteURL)
         var request = URLRequest(url: url)
         request.httpMethod = resource.method.rawValue
-        request.httpBody = resource.requestBody
-        
+        print("压缩前 \(resource.requestBody?.count ?? 0)");
+        let compressedData: Data = try! resource.requestBody?.gzipped() ?? Data()
+        print("压缩后 \(compressedData.count)");
+        request.httpBody = compressedData
+        print("request url: \(url)")
         for (k, v) in resource.headers {
             request.setValue(v, forHTTPHeaderField: k)
         }

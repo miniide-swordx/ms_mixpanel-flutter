@@ -31,18 +31,12 @@ class FlushRequest: Network {
             }
             return nil
         }
-        
-        
-        print(requestData)
-        let data: Data = requestData.data(using: .utf8)!;
-        print("data.length:\(data.count)")
     
-        let compressedData: Data = try! data.gzipped()
         
         let ipString = useIP ? "1" : "0"
         let resource = Network.buildResource(path: type.rawValue,
                                              method: .post,
-                                             requestBody: compressedData,
+                                             requestBody: requestData.data(using: .utf8),
                                              queryItems: [URLQueryItem(name: "ip", value: ipString)],
                                              headers: ["Content-Type": "application/json", "Content-Encoding": "tinhnow"],
                                              parse: responseParser)
